@@ -1,0 +1,37 @@
+name: Daily Economic Briefing
+
+on:
+  schedule:
+    # Täglich um 18:00 UTC = 19:00 MEZ (Winter) / 20:00 MESZ (Sommer)
+    - cron: '0 18 * * *'
+  
+  # Manueller Trigger für Tests
+  workflow_dispatch:
+
+jobs:
+  send-briefing:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+    
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install Dependencies
+      run: |
+        pip install -r requirements.txt
+    
+    - name: Update config with Gmail sender
+      run: |
+        sed -i "s/sender: deine.email@gmail.com/sender: ${{ secrets.GMAIL_SENDER }}/" config.yaml
+    
+    - name: Run Briefing
+      env:
+        EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+        ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      run: |
+        python main.py
