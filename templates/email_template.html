@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wirtschafts-Briefing</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1a1a1a;
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        .date {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+        .market-data {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+        }
+        .market-category {
+            margin-bottom: 15px;
+        }
+        .market-category h3 {
+            color: #0066cc;
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+        .market-item {
+            display: inline-block;
+            margin-right: 25px;
+            margin-bottom: 8px;
+        }
+        .market-name {
+            font-weight: bold;
+        }
+        .positive {
+            color: #28a745;
+        }
+        .negative {
+            color: #dc3545;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .section-title {
+            color: #0066cc;
+            border-left: 4px solid #0066cc;
+            padding-left: 12px;
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+        .news-item {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .news-item:last-child {
+            border-bottom: none;
+        }
+        .news-headline {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+        .news-source {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+        .news-summary {
+            margin-bottom: 12px;
+            color: #333;
+        }
+        .consequences {
+            background-color: #f8f9fa;
+            padding: 12px 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        .consequences ul {
+            margin: 5px 0;
+            padding-left: 20px;
+        }
+        .consequences li {
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .read-more {
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .read-more:hover {
+            text-decoration: underline;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+            color: #666;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Wirtschafts-Briefing</h1>
+        <div class="date">{{ date }}</div>
+        
+        <!-- Marktdaten -->
+        <div class="market-data">
+            <h2 style="margin-top: 0; color: #1a1a1a; font-size: 20px;">📈 Marktüberblick</h2>
+            {{ market_data }}
+        </div>
+        
+        <!-- Allgemeine Wirtschaftsnews -->
+        <div class="section">
+            <h2 class="section-title">🌍 Wirtschaft & Politik</h2>
+            {{ allgemein_news }}
+        </div>
+        
+        <!-- Finanzmärkte -->
+        <div class="section">
+            <h2 class="section-title">💰 Finanzmärkte</h2>
+            {{ finanzen_news }}
+        </div>
+        
+        <!-- Kryptowährungen -->
+        <div class="section">
+            <h2 class="section-title">₿ Kryptowährungen</h2>
+            {{ krypto_news }}
+        </div>
+        
+        <!-- Forex & Devisen -->
+        <div class="section">
+            <h2 class="section-title">💱 Forex & Devisen</h2>
+            {{ forex_news }}
+        </div>
+        
+        <!-- Tech -->
+        <div class="section">
+            <h2 class="section-title">💻 Technologie</h2>
+            {{ tech_news }}
+        </div>
+        
+        <!-- Rohstoffe -->
+        <div class="section">
+            <h2 class="section-title">🛢️ Rohstoffe</h2>
+            {{ rohstoffe_news }}
+        </div>
+        
+        <div class="footer">
+            Automatisches Briefing generiert am {{ date }}<br>
+            Quellen: Handelsblatt, Manager Magazin, ZEIT, WiWo, DER AKTIONÄR, BTC-ECHO, CoinDesk, FXStreet, Heise, t3n, Golem
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+email:
+  smtp_server: smtp.gmail.com
+  smtp_port: 587
+  sender: benedikt.weidner08@gmail.com
+  recipient: benedikt.weidner77@outlook.de
+
+# RSS-Feed Quellen
+rss_feeds:
+  allgemein:
+    - https://www.handelsblatt.com/contentexport/feed/finanzen
+    - https://newsfeed.zeit.de/wirtschaft/index
+    - https://www.wiwo.de/contentexport/feed/rss/schlagzeilen
+  
+  finanzen:
+    - https://www.handelsblatt.com/contentexport/feed/finanzen
+    - https://www.deraktionaer.de/aktionaer-news.rss
+    - https://www.manager-magazin.de/news/index.rss
+  
+  krypto:
+    - https://www.btc-echo.de/feed/
+    - https://www.coindesk.com/arc/outboundfeeds/rss/
+  
+  forex:
+    - https://www.fxstreet.com/rss
+    - https://www.handelsblatt.com/contentexport/feed/finanzen
+  
+  tech:
+    - https://www.heise.de/rss/heise-atom.xml
+    - https://t3n.de/rss.xml
+    - https://www.golem.de/rss.php?feed=RSS2.0
+  
+  rohstoffe:
+    - https://www.handelsblatt.com/contentexport/feed/finanzen
+    - https://www.manager-magazin.de/news/index.rss
+
+# Anzahl News pro Kategorie
+news_count:
+  raw: 6        # Parser holt 6 News als Rohstoff
+  filtered: 3   # Nach Relevanz-Filter bleiben 3
+
+# Marktdaten Symbole (yfinance)
+market_symbols:
+  indices:
+    - symbol: ^GDAXI
+      name: DAX
+    - symbol: ^DJI
+      name: Dow Jones
+    - symbol: ^GSPC
+      name: S&P 500
+  
+  crypto:
+    - symbol: BTC-USD
+      name: Bitcoin
+    - symbol: ETH-USD
+      name: Ethereum
+  
+  commodities:
+    - symbol: GC=F
+      name: Gold
+    - symbol: SI=F
+      name: Silber
+  
+  forex:
+    - symbol: EURUSD=X
+      name: EUR/USD
+
+# Zeitfilter (News der letzten X Stunden)
+news_hours_filter: 24
+
+# Output-Optionen
+output:
+  send_email: true
+  generate_pdf: true
+  pdf_path: "./briefings/"  # Ordner für PDF-Ablage
