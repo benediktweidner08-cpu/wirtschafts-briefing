@@ -7,8 +7,6 @@ from typing import List, Dict
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
-
 
 class RelevanceFilter:
     def __init__(self):
