@@ -28,19 +28,13 @@ class PDFGenerator:
         self.styles = getSampleStyleSheet()
         self._create_custom_styles()
         
-        
-class PDFGenerator:
-
-    def __init__(self, config_path: str = "config.yaml"):
-        ...
 
     def _safe_text(self, value) -> str:
-     """Macht Text ReportLab-sicher"""
-     if value is None:
-        return ""
+        if value is None:
+            return ""
 
-     if not isinstance(value, str):
-        value = str(value)
+        if not isinstance(value, str):
+            value = str(value)
 
         value = value.strip()
 
@@ -48,6 +42,7 @@ class PDFGenerator:
             return ""
 
         return escape(value)
+
 
     
     def _create_custom_styles(self):
