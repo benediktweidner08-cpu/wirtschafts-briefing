@@ -1,6 +1,7 @@
 """
 PDF-Generator für Wirtschafts-Briefing
 """
+from xml.sax.saxutils import escape
 from reportlab.lib.pagesizes import A4
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -26,6 +27,28 @@ class PDFGenerator:
         # Styles definieren
         self.styles = getSampleStyleSheet()
         self._create_custom_styles()
+        
+        
+class PDFGenerator:
+
+    def __init__(self, config_path: str = "config.yaml"):
+        ...
+
+    def _safe_text(self, value) -> str:
+     """Macht Text ReportLab-sicher"""
+     if value is None:
+        return ""
+
+     if not isinstance(value, str):
+        value = str(value)
+
+        value = value.strip()
+
+        if not value:
+            return ""
+
+        return escape(value)
+
     
     def _create_custom_styles(self):
         """Erstelle custom Styles"""
@@ -105,7 +128,7 @@ class PDFGenerator:
             for item in items:
                 color = 'green' if item['change'] >= 0 else 'red'
                 table_data.append([
-                    Paragraph(item['name'], self.normal_style),
+                    Paragraph(self._safe_text(item.get('name')), self.normal_style),
                     Paragraph(f"{item['price']:.2f}", self.normal_style),
                     Paragraph(
                         f"<font color='{color}'>{item['arrow']} {item['change_pct']:+.2f}%</font>",
@@ -131,27 +154,34 @@ class PDFGenerator:
         return elements
     
     def _format_news_item(self, article: Dict) -> List:
-        """Formatiere einzelne News für PDF"""
         elements = []
-        
-        # Headline
-        elements.append(Paragraph(article['headline'], self.headline_style))
-        
-        # Quelle
-        elements.append(Paragraph(f"Quelle: {article['source']}", self.source_style))
-        
-        # Kernaussage
-        elements.append(Paragraph(article['kernaussage'], self.normal_style))
+
+        headline = self._safe_text(article.get('headline'))
+        source = self._safe_text(article.get('source'))
+
+        kernaussage = article.get('kernaussage')
+        if not kernaussage:
+            kernaussage = article.get('headline', "Keine Zusammenfassung verfügbar")
+
+        kernaussage = self._safe_text(kernaussage)
+
+        elements.append(Paragraph(headline, self.headline_style))
+        elements.append(Paragraph(f"Quelle: {source}", self.source_style))
+        elements.append(Paragraph(kernaussage, self.normal_style))
         elements.append(Spacer(1, 0.2*cm))
-        
-        # Konsequenzen
-        if article['konsequenzen']:
+
+        konsequenzen = article.get('konsequenzen') or []
+
+        if konsequenzen:
             elements.append(Paragraph("<b>Mögliche Konsequenzen:</b>", self.normal_style))
-            for konsequenz in article['konsequenzen']:
-                elements.append(Paragraph(f"• {konsequenz}", self.normal_style))
-        
+
+            for konsequenz in konsequenzen:
+                safe_konsequenz = self._safe_text(konsequenz)
+                elements.append(Paragraph(f"• {safe_konsequenz}", self.normal_style))
+
         elements.append(Spacer(1, 0.4*cm))
         return elements
+
     
     def generate_pdf(
         self,
