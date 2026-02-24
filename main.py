@@ -20,7 +20,13 @@ def main():
     print("WIRTSCHAFTS-BRIEFING GENERATOR")
     print(f"Gestartet: {datetime.now().strftime('%d.%m.%Y %H:%M:%S')}")
     print("=" * 60)
-    
+
+    # Nur dienstags ausführen (weekday() == 1)
+    if datetime.now().weekday() != 1:
+        wochentag = datetime.now().strftime('%A')
+        print(f"\nHeute ist {wochentag} — Briefing wird nur dienstags erstellt. Abbruch.")
+        return 0
+
     # Config laden
     with open('config.yaml', 'r', encoding='utf-8') as f:
         config = yaml.safe_load(f)
