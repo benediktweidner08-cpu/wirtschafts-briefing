@@ -15,7 +15,7 @@ class RelevanceFilter:
             raise ValueError("ANTHROPIC_API_KEY nicht in .env gefunden")
         
         self.client = Anthropic(api_key=api_key)
-        self.model = "claude-sonnet-4-20250514"
+        self.model = "claude-haiku-4-5-20251001"
     
     def evaluate_relevance(self, articles: List[Dict], category: str) -> List[Dict]:
         """

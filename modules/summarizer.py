@@ -16,7 +16,7 @@ class NewsSummarizer:
             raise ValueError("ANTHROPIC_API_KEY nicht in .env gefunden")
         
         self.client = Anthropic(api_key=api_key)
-        self.model = "claude-sonnet-4-20250514"
+        self.model = "claude-haiku-4-5-20251001"
     
     def summarize_article(self, article: Dict) -> Dict:
         """Fasse einen einzelnen Artikel zusammen"""
